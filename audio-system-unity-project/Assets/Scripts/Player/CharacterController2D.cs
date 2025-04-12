@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using FMOD.Studio;
 using UnityEngine;
 
 // This script is a basic 2D character controller that allows
@@ -36,6 +37,8 @@ public class CharacterController2D : MonoBehaviour
     private bool isGrounded = false;
     private bool disableMovement = false;
 
+    private EventInstance playerFootstepsInstance;
+
     private void Awake()
     {
         coll = GetComponent<BoxCollider2D>();
@@ -49,12 +52,18 @@ public class CharacterController2D : MonoBehaviour
         rb.gravityScale = gravityScale;
     }
 
+    private void Start()
+    {
+        playerFootstepsInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.playerFootstepsEventRef);
+    }
+
     private void FixedUpdate()
     {
-        if (disableMovement) 
+        if (disableMovement)
         {
             rb.velocity = Vector2.zero;
             UpdateAnimator();
+            UpdateSound();
             return;
         }
 
@@ -69,9 +78,11 @@ public class CharacterController2D : MonoBehaviour
         UpdateFacingDirection();
 
         UpdateAnimator();
+
+        UpdateSound();
     }
 
-    private void HandleInput() 
+    private void HandleInput()
     {
         moveDirection = InputManager.instance.GetMoveDirection();
         jumpPressed = InputManager.instance.GetJumpPressed();
@@ -144,7 +155,7 @@ public class CharacterController2D : MonoBehaviour
         animator.SetFloat("movementY", rb.velocity.y);
     }
 
-    private IEnumerator HandleDeath() 
+    private IEnumerator HandleDeath()
     {
         // freeze player movemet
         rb.gravityScale = 0;
@@ -160,11 +171,11 @@ public class CharacterController2D : MonoBehaviour
         GameEventsManager.instance.PlayerDeath();
 
         yield return new WaitForSeconds(0.4f);
-        
+
         Respawn();
     }
 
-    private void Respawn() 
+    private void Respawn()
     {
         // enable movement
         rb.gravityScale = gravityScale;
@@ -177,7 +188,7 @@ public class CharacterController2D : MonoBehaviour
         this.transform.position = respawnPoint.position;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) 
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         // if we collided with anything in the harmful layer, death occurs
         if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Harmful")))
@@ -194,6 +205,25 @@ public class CharacterController2D : MonoBehaviour
     public void EnableMovement()
     {
         disableMovement = false;
+    }
+
+    private void UpdateSound()
+    {
+        if (rb.velocity.x != 0 && isGrounded)
+        {
+            PLAYBACK_STATE playbackState;
+
+            playerFootstepsInstance.getPlaybackState(out playbackState);
+
+            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+            {
+                playerFootstepsInstance.start();
+            }
+        }
+        else
+        {
+            playerFootstepsInstance.stop(STOP_MODE.ALLOWFADEOUT);
+        }
     }
 
 }

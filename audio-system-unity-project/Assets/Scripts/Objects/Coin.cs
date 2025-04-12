@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 
 public class Coin : MonoBehaviour
@@ -8,26 +9,34 @@ public class Coin : MonoBehaviour
     private ParticleSystem collectParticle;
     private bool collected = false;
 
-    private void Awake() 
+    StudioEventEmitter emitter;
+
+    private void Awake()
     {
         visual = this.GetComponentInChildren<SpriteRenderer>();
         collectParticle = this.GetComponentInChildren<ParticleSystem>();
         collectParticle.Stop();
+
+        emitter = AudioManager.instance.CreateEmitter(FMODEvents.instance.coinIdleEventRef, transform, EmitterGameEvent.ObjectStart, EmitterGameEvent.None, true, 1f, 6f);
     }
 
-    private void OnTriggerEnter2D() 
+    private void OnTriggerEnter2D()
     {
-        if (!collected) 
+        if (!collected)
         {
             collectParticle.Play();
             CollectCoin();
         }
     }
 
-    private void CollectCoin() 
+    private void CollectCoin()
     {
         collected = true;
         visual.gameObject.SetActive(false);
+
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.coinCollectedEventRef, transform.position);
+        emitter.Stop();
+
         GameEventsManager.instance.CoinCollected();
     }
 
