@@ -159,6 +159,8 @@ public class AudioManager : MonoBehaviour
     public StudioEventEmitter CreateEmitter(EventReference eventRef, Transform transform, EmitterGameEvent playEvent, EmitterGameEvent stopEvent, bool overrideAttenuation = false, float minDistance = 1f, float maxDistance = 6f)
     {
         var emitter = transform.gameObject.AddComponent<StudioEventEmitter>();
+        Debug.Log($"Event ref {eventRef}");
+
         emitter.EventReference = eventRef;
 
         if (overrideAttenuation)

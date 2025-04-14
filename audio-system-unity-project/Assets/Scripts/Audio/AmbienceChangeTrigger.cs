@@ -28,5 +28,6 @@ public class AmbienceChangeTrigger : MonoBehaviour
                 alreadyGetPassed = false;
             }
         }
+
     }
 }

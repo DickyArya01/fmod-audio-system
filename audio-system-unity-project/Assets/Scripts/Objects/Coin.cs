@@ -17,7 +17,11 @@ public class Coin : MonoBehaviour
         collectParticle = this.GetComponentInChildren<ParticleSystem>();
         collectParticle.Stop();
 
-        emitter = AudioManager.instance.CreateEmitter(FMODEvents.instance.coinIdleEventRef, transform, EmitterGameEvent.ObjectStart, EmitterGameEvent.None, true, 1f, 6f);
+    }
+
+    private void Start()
+    {
+        emitter = AudioManager.instance.CreateEmitter(FMODEvents.instance.coinCollectedEventRef, transform, EmitterGameEvent.ObjectStart, EmitterGameEvent.None, true, 1f, 6f);
     }
 
     private void OnTriggerEnter2D()

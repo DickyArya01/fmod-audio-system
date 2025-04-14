@@ -12126,11 +12126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e33c283cfe63fd3488867c92eae5c9ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeSettings:
-    masterVolume: 1
-    musicVolume: 1
-    ambienceVolume: 1
-    sfxVolume: 1
 --- !u!1 &447767068
 GameObject:
   m_ObjectHideFlags: 0
@@ -13257,6 +13252,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25bad204fb395a54fbce41163b1894cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1321724109 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6153057867823157816, guid: 23aef64010e11264082c3e785f37e8e3, type: 3}
+  m_PrefabInstance: {fileID: 7272025453213834279}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1321724112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321724109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1612558605
+      Data2: 1248141668
+      Data3: 1983195805
+      Data4: -950903667
+    Path: event:/SFX/Coin/CoinIdle
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 5.26
 --- !u!1001 &1324482389
 PrefabInstance:
   m_ObjectHideFlags: 0
