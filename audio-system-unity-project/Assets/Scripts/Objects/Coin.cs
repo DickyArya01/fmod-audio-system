@@ -21,7 +21,7 @@ public class Coin : MonoBehaviour
 
     private void Start()
     {
-        emitter = AudioManager.instance.CreateEmitter(FMODEvents.instance.coinCollectedEventRef, transform, EmitterGameEvent.ObjectStart, EmitterGameEvent.None, true, 1f, 6f);
+        emitter = AudioManager.instance.CreateEmitter(FMODEvents.instance.coinIdleEventRef, transform, EmitterGameEvent.ObjectStart, EmitterGameEvent.None, true, 1f, 6f);
     }
 
     private void OnTriggerEnter2D()
